@@ -1,0 +1,23 @@
+{
+  "port": 3000,
+  "dataFile": "data/events.jsonl",
+  "windowMs": 300000,
+  "maxFutureSkewMs": 300000,
+  "levelThresholds": [
+    { "level": 1, "minMagnitude": 3.0 },
+    { "level": 2, "minMagnitude": 4.0 },
+    { "level": 3, "minMagnitude": 5.0 }
+  ],
+  "grid": {
+    "cells": [
+      { "cellId": "CELL-NORTH", "regions": ["R01", "R02"] },
+      { "cellId": "CELL-SOUTH", "regions": ["R03", "R04"] }
+    ]
+  },
+  "tokens": [
+    { "token": "替换为值班员令牌-至少8位", "role": "duty", "name": "duty-officer" },
+    { "token": "替换为台站令牌-至少8位", "role": "station", "name": "station-gateway" }
+  ],
+  "delivery": { "maxAttempts": 5, "baseBackoffMs": 2000, "timeoutMs": 5000 },
+  "worker": { "enabled": true, "pollMs": 1000 }
+}

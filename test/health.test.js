@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { app } from "../src/server.js";
+import { api, startTestServer } from "./helpers.js";
 
-test("健康检查返回服务状态", async () => {
-  app.listen(0);
-  const { port } = app.address();
-  const response = await fetch(`http://127.0.0.1:${port}/health`);
-  assert.deepEqual(await response.json(), { service: "aftershock-alert", status: "ok" });
-  await new Promise((resolve) => app.close(resolve));
+test("健康检查返回服务状态", async (t) => {
+  const ctx = await startTestServer();
+  t.after(ctx.close);
+  const res = await api(ctx.base, "GET", "/health");
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body, { service: "aftershock-alert", status: "ok" });
 });
